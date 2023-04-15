@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * An {@code Event} that is recurring.
  * A {@code RecurringEvent} takes place on multiple days of the week and repeats weekly
- * @see calendar.Event
+ * @see Event
  * @author Jonathan Stewart Thomas
  * @version 1.0.1.230214
  */

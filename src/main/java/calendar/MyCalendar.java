@@ -11,7 +11,7 @@ import java.util.TreeSet;
  * {@code MyCalendar} can be outputted as a String showing a day view a month view,
  * or a combination of both.
  * @author Jonathan Stewart Thomas
- * @version 1.0.3.230216
+ * @version 1.0.4.230420
  */
 public class MyCalendar {
     private final HashMap<LocalDate, TreeSet<Event>> events;
@@ -118,7 +118,7 @@ public class MyCalendar {
      */
     public void previousDay() {
         selectedDay = selectedDay.minusDays(1);
-        firstDay = LocalDate.of(today.getYear(), today.getMonth(), 1);
+        firstDay = LocalDate.of(selectedDay.getYear(), selectedDay.getMonth(), 1);
         lastDay = firstDay.lengthOfMonth();
     }
 
@@ -127,7 +127,7 @@ public class MyCalendar {
      */
     public void nextDay() {
         selectedDay = selectedDay.plusDays(1);
-        firstDay = LocalDate.of(today.getYear(), today.getMonth(), 1);
+        firstDay = LocalDate.of(selectedDay.getYear(), selectedDay.getMonth(), 1);
         lastDay = firstDay.lengthOfMonth();
     }
 
@@ -137,7 +137,7 @@ public class MyCalendar {
      */
     public void goTo(LocalDate date) {
         selectedDay = date;
-        firstDay = LocalDate.of(today.getYear(), today.getMonth(), 1);
+        firstDay = LocalDate.of(selectedDay.getYear(), selectedDay.getMonth(), 1);
         lastDay = firstDay.lengthOfMonth();
     }
 
@@ -211,7 +211,7 @@ public class MyCalendar {
      * @param date  The date we are checking.
      * @return      true if there is an event on that date
      */
-    private boolean hasEventsOn(LocalDate date) {
+    public boolean hasEventsOn(LocalDate date) {
         if (events.get(date) != null) {
             return events.get(date).size() > 0;
         }
@@ -235,6 +235,23 @@ public class MyCalendar {
         }
         return false;
     }
+
+    public LocalDate getToday() {
+        return today;
+    }
+
+    public LocalDate getFirstDay() {
+        return firstDay;
+    }
+
+    public LocalDate getSelectedDay() {
+        return selectedDay;
+    }
+
+    public int getLastDay() {
+        return lastDay;
+    }
+
 
     /**
      * Outputs a month view of {@code MyCalendar} as a String with the month and year at the top.

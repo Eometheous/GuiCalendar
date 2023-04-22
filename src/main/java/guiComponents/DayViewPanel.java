@@ -14,7 +14,8 @@ public class DayViewPanel extends JPanel implements ChangeListener {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         textArea.setText(stringModel.get(0));
         textArea.setEditable(false);
-        add(textArea);
+        JScrollPane jScrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        add(jScrollPane);
     }
     @Override
     public void stateChanged(ChangeEvent e) {

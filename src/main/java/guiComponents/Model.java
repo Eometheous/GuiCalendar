@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * listeners so that the data can be viewed in many ways.
  * @param <T> The type of data that will be stored
  * @author Jonathan Stewart Thomas
- * @version 1.0.1.230413
+ * @version 1.1.0.230422
  */
 public class Model<T> {
     private final ArrayList<T> dataList;
@@ -26,6 +26,9 @@ public class Model<T> {
     }
     public void update(int position, T updated) {
         dataList.set(position, updated);
+        pingListeners();
+    }
+    public void pingListeners() {
         for (ChangeListener listener : listeners) {
             listener.stateChanged(new ChangeEvent(this));
         }

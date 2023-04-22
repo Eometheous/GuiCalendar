@@ -19,6 +19,7 @@ public class SimpleCalendarTester {
         }
 
         CalendarFrame frame = new CalendarFrame(myCalendar);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     /**

@@ -5,6 +5,8 @@ import calendar.MyCalendar;
 import calendar.RecurringEvent;
 import guiComponents.CalendarFrame;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +22,14 @@ public class SimpleCalendarTester {
 
         CalendarFrame frame = new CalendarFrame(myCalendar);
         frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (saveFile()) {
+                    System.out.println("Events saved to output.txt");
+                }
+            }
+        });
         frame.setVisible(true);
     }
     /**
@@ -72,12 +82,12 @@ public class SimpleCalendarTester {
      * @return  true if it was successful and false if it wasn't
      */
     public static boolean saveFile() {
-        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+        try (FileWriter fileWriter = new FileWriter("events.txt")) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Event e: myCalendar.getOneTimeEventsList()) {
+            for (RecurringEvent e: myCalendar.getRecurringEventsList()) {
                 bufferedWriter.write(e.inFormatMonthDayYear());
             }
-            for (RecurringEvent e: myCalendar.getRecurringEventsList()) {
+            for (Event e: myCalendar.getOneTimeEventsList()) {
                 bufferedWriter.write(e.inFormatMonthDayYear());
             }
             bufferedWriter.close();

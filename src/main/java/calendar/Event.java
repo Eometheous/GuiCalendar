@@ -11,7 +11,7 @@ import java.util.Comparator;
  * {@code Event} start times. {@code Event} also utilizes
  * a Comparator to sort by start date and start time.
  * @author Jonathan Stewart Thomas
- * @version 1.0.3.230421
+ * @version 1.0.4.230423
  */
 public class Event{
     public static final Comparator<Event> DATE_TIME_ORDER = (e1, e2) -> {
@@ -55,7 +55,7 @@ public class Event{
      */
     public String inFormatMonthDayYear() {
         DateTimeFormatter monthDayYear = DateTimeFormatter.ofPattern("M/d/yy");
-        return String.format("%s\n%s %s\n", getName(), monthDayYear.format(startDate), getTimeInterval());
+        return String.format("%s\n%s %s\n", getName(), monthDayYear.format(startDate), getTimeInterval().noDashString());
     }
 
     /**

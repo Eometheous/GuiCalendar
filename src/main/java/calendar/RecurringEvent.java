@@ -11,11 +11,13 @@ import java.util.ArrayList;
  * A {@code RecurringEvent} takes place on multiple days of the week and repeats weekly
  * @see Event
  * @author Jonathan Stewart Thomas
- * @version 1.1.1.230423
+ * @version 1.1.2.230423
  */
 public class RecurringEvent extends Event{
     private final ArrayList<LocalDate> dates;
     private final String days;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     /**
      * Creates a {@code RecurringEvent}.
@@ -32,6 +34,8 @@ public class RecurringEvent extends Event{
     public RecurringEvent(String name, String days, LocalDate startDate,
                           LocalDate endDate, LocalTime startTime, LocalTime endTime) {
         super(name, startDate, startTime, endTime);
+        this.startDate = startDate;
+        this.endDate = endDate;
         if (startDate.isAfter(endDate) || startDate.equals(endDate))
             throw new DateTimeException("end date must be after start date");
 
@@ -93,13 +97,13 @@ public class RecurringEvent extends Event{
      * @return  the starting date
      */
     @Override
-    public LocalDate getStartDate() {return dates.get(0);}
+    public LocalDate getStartDate() {return startDate;}
 
     /**
      * Gets the date the {@code RecurringEvent} stops recurring
      * @return  the ending date
      */
-    public LocalDate getEndDate() {return dates.get(dates.size() - 1);}
+    public LocalDate getEndDate() {return endDate;}
 
     /**
      * Outputs {@code RecurringEvent} as a String using the {@code M/d/yy} pattern for the

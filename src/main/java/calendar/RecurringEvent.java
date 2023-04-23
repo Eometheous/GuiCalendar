@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * A {@code RecurringEvent} takes place on multiple days of the week and repeats weekly
  * @see Event
  * @author Jonathan Stewart Thomas
- * @version 1.1.0.230421
+ * @version 1.1.1.230423
  */
 public class RecurringEvent extends Event{
     private final ArrayList<LocalDate> dates;
@@ -110,6 +110,6 @@ public class RecurringEvent extends Event{
     public String inFormatMonthDayYear() {
         DateTimeFormatter monthDayYear = DateTimeFormatter.ofPattern("M/d/yy");
         return String.format("%s\n%s %s %s %s\n", getName(),
-                days, monthDayYear.format(getStartDate()), monthDayYear.format(getEndDate()), getTimeInterval());
+                days, getTimeInterval().noDashString(), monthDayYear.format(getStartDate()), monthDayYear.format(getEndDate()));
     }
 }

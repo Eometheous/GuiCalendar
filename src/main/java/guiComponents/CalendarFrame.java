@@ -30,8 +30,40 @@ public class CalendarFrame extends JFrame {
         eventsMenu.add(addEventButton);
         addEventButton.addActionListener(e -> new AddEventFrame("Creating Event", dateModel, stringModel, calendar));
 
-        JMenuItem removeEventButton = new JMenuItem("Remove Event");
-        eventsMenu.add(removeEventButton);
+        JMenu removeEventMenu = new JMenu("Remove Event");
+        JMenuItem removeSelected = new JMenuItem("Remove a Selected Event");
+        removeSelected.addActionListener(e -> new RemoveEventFrame("Removing Event", dateModel, stringModel, calendar));
+
+        JMenuItem removeAll = new JMenuItem("Remove All Events");
+        removeAll.addActionListener(e -> {
+            calendar.deleteAllEvents();
+            dateModel.pingListeners();
+            stringModel.update(0, calendar.displaySelectedDay());
+        });
+
+        JMenuItem removeAllEventsOn = new JMenuItem("Remove All Events On...");
+
+        removeAllEventsOn.addActionListener(e -> {
+            DateTimeFormatter monthDayYear = DateTimeFormatter.ofPattern("M/d/yyyy");
+            String stringDate = JOptionPane.showInputDialog(this,
+                    "Enter the date to remove events from (mm/dd/yyyy): ", monthDayYear.format(dateModel.get(0)));
+            if (stringDate != null) {
+                LocalDate date = LocalDate.parse(stringDate, monthDayYear);
+                calendar.deleteAllEventsOn(date);
+                dateModel.pingListeners();
+                stringModel.update(0,calendar.displaySelectedDay());
+            }
+        });
+
+        JMenuItem removeRecurringEvent = new JMenuItem("Remove a Recurring Event");
+        removeRecurringEvent.addActionListener(e -> new
+                RemoveRecurringEvent("Remove Recurring Event", dateModel, stringModel, calendar));
+
+        removeEventMenu.add(removeSelected);
+        removeEventMenu.add((removeAll));
+        removeEventMenu.add(removeAllEventsOn);
+        removeEventMenu.add(removeRecurringEvent);
+        eventsMenu.add(removeEventMenu);
 
         JMenu navigateMenu = new JMenu("Navigate");
         JMenuItem goToToday = new JMenuItem("Go To Today");

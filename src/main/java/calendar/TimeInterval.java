@@ -7,7 +7,7 @@ import java.time.LocalTime;
  * A time interval containing a start time and end time.
  * For example, {@code 10:30-11:30}
  * @author Jonathan Stewart Thomas
- * @version 1.0.1.230214
+ * @version 1.1.0.230423
  */
 public class TimeInterval {
     private final LocalTime startTime;
@@ -68,6 +68,14 @@ public class TimeInterval {
         else if (this.isBetween(timeInterval)) return true;
         else if (timeInterval.isBetween(this)) return true;
         else return timeInterval.isBetween(startTime, endTime);
+    }
+
+    /**
+     * Outputs {@code TimeInterval} as a String with no -
+     * @return  a String of {@code TimeInterval} with no -
+     */
+    public String noDashString() {
+        return startTime + " " + endTime;
     }
 
     /**

@@ -16,8 +16,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class AddEventFrame extends JFrame {
 
-    public static final int SELECTED_DATE = 0;
-
     /**
      * Constructor for this frame. It takes in two models and the calendar the events are being added too.
      * @param dateModel     model containing the selected date
@@ -32,7 +30,7 @@ public class AddEventFrame extends JFrame {
         JTextField eventName = new JTextField("Event Name");
 
         DateTimeFormatter monthDayYear = DateTimeFormatter.ofPattern("M/d/yyyy");
-        JTextField date = new JTextField(monthDayYear.format(dateModel.get(SELECTED_DATE)));
+        JTextField date = new JTextField(monthDayYear.format(dateModel.get(0)));
 
         DateTimeFormatter hourMinute = DateTimeFormatter.ofPattern("H:mm");
         JTextField startTime = new JTextField(hourMinute.format(LocalTime.now()));
@@ -48,8 +46,8 @@ public class AddEventFrame extends JFrame {
             }
             else {
                 dateModel.pingListeners();
-                if (dateModel.get(SELECTED_DATE).equals(LocalDate.now())) stringModel.update(SELECTED_DATE,calendar.displayTodaysEvents());
-                else stringModel.update(SELECTED_DATE,calendar.displaySelectedDay());
+                if (dateModel.get(0).equals(LocalDate.now())) stringModel.update(0,calendar.displayTodaysEvents());
+                else stringModel.update(0,calendar.displaySelectedDay());
                 dispose();
             }
         });

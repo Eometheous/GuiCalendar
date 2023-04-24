@@ -9,18 +9,32 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A frame that adds an event to the calendar.
+ * @author Jonathan Stewart Thomas
+ * @version 1.0.0.230423
+ */
 public class AddEventFrame extends JFrame {
-    public AddEventFrame(String name, Model<LocalDate> dateModel, Model<String> stringModel, MyCalendar calendar) {
-        super(name);
+
+    public static final int SELECTED_DATE = 0;
+
+    /**
+     * Constructor for this frame. It takes in two models and the calendar the events are being added too.
+     * @param dateModel     model containing the selected date
+     * @param stringModel   model containing the string
+     * @param calendar      calendar to add the event to
+     */
+    public AddEventFrame(Model<LocalDate> dateModel, Model<String> stringModel, MyCalendar calendar) {
+        super("Creating Event");
         setLocationRelativeTo(null);
         setVisible(true);
 
         JTextField eventName = new JTextField("Event Name");
 
         DateTimeFormatter monthDayYear = DateTimeFormatter.ofPattern("M/d/yyyy");
-        JTextField date = new JTextField(monthDayYear.format(dateModel.get(0)));
+        JTextField date = new JTextField(monthDayYear.format(dateModel.get(SELECTED_DATE)));
 
-        DateTimeFormatter hourMinute = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter hourMinute = DateTimeFormatter.ofPattern("H:mm");
         JTextField startTime = new JTextField(hourMinute.format(LocalTime.now()));
         JTextField endTime = new JTextField(hourMinute.format(LocalTime.now().plusHours(1)));
 
@@ -34,8 +48,8 @@ public class AddEventFrame extends JFrame {
             }
             else {
                 dateModel.pingListeners();
-                if (dateModel.get(0).equals(LocalDate.now())) stringModel.update(0,calendar.displayTodaysEvents());
-                else stringModel.update(0,calendar.displaySelectedDay());
+                if (dateModel.get(SELECTED_DATE).equals(LocalDate.now())) stringModel.update(SELECTED_DATE,calendar.displayTodaysEvents());
+                else stringModel.update(SELECTED_DATE,calendar.displaySelectedDay());
                 dispose();
             }
         });

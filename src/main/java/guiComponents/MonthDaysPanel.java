@@ -10,11 +10,22 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
+/**
+ * The panel containing the day buttons that change the date
+ * @author Jonathan Stewart Thomas
+ * @version 1.0.0.230423
+ */
 public class MonthDaysPanel extends JPanel implements ChangeListener {
     MyCalendar calendar;
     Model<LocalDate> dateModel;
     Model<String> stringModel;
-    private final int SELECTED_DAY = 0;
+
+    /**
+     * The constructor for this panel
+     * @param calendar      the calendar being used
+     * @param dateModel     the model containing the selected date
+     * @param stringModel   model containing the string for the day view
+     */
     public MonthDaysPanel(MyCalendar calendar, Model<LocalDate> dateModel, Model<String> stringModel) {
         this.calendar = calendar;
         this.dateModel = dateModel;
@@ -24,6 +35,11 @@ public class MonthDaysPanel extends JPanel implements ChangeListener {
         setPreferredSize(new Dimension(340,200));
     }
 
+    /**
+     * Generates the day buttons
+     * @param calendar  the calendar being used
+     * @param dateModel the model containing the selected date
+     */
     private void generateDays(MyCalendar calendar, Model<LocalDate> dateModel) {
         removeAll();
         int firstColumn = calendar.getFirstDay().getDayOfWeek().getValue();
@@ -43,7 +59,7 @@ public class MonthDaysPanel extends JPanel implements ChangeListener {
             else button.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), " ",
                     TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, Font.getFont(Font.SANS_SERIF), Color.RED));
             
-            button.setEnabled(i != dateModel.get(SELECTED_DAY).getDayOfMonth());
+            button.setEnabled(i != dateModel.get(0).getDayOfMonth());
 
             add(button);
 
@@ -53,18 +69,28 @@ public class MonthDaysPanel extends JPanel implements ChangeListener {
         repaint();
     }
 
+    /**
+     * An action listener which updates both models
+     * @param date  the date we are going to
+     * @return      the action listener
+     */
     private ActionListener goToDate(LocalDate date) {
         return e -> {
-            dateModel.update(SELECTED_DAY, date);
+            dateModel.update(0, date);
             if (date.equals(LocalDate.now()))
-                stringModel.update(SELECTED_DAY, calendar.displayTodaysEvents());
+                stringModel.update(0, calendar.displayTodaysEvents());
             else
-                stringModel.update(SELECTED_DAY,calendar.displaySelectedDay());
+                stringModel.update(0,calendar.displaySelectedDay());
         };
     }
+
+    /**
+     * Updates this panel and generates new buttons for the month view
+     * @param e  a ChangeEvent object
+     */
     @Override
     public void stateChanged(ChangeEvent e) {
-        calendar.goTo(dateModel.get(SELECTED_DAY));
+        calendar.goTo(dateModel.get(0));
         generateDays(calendar, dateModel);
     }
 }

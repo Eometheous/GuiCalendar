@@ -13,6 +13,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Contains the main method for this project.
+ * First reads events.txt and loads the events into the calendar.
+ * Creates a CalendarFrame with the calendar.
+ * Saves the events to events.txt when the frame is closed.
+ * @author Jonathan Stewart Thomas
+ * @version 1.0.0.230423
+ */
 public class SimpleCalendarTester {
     static MyCalendar myCalendar = new MyCalendar();
     public static void main(String[] args) {
@@ -78,7 +86,7 @@ public class SimpleCalendarTester {
     }
 
     /**
-     * Saves an output file called output.txt
+     * Saves an output file called events.txt
      * @return  true if it was successful and false if it wasn't
      */
     public static boolean saveFile() {

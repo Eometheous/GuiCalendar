@@ -19,7 +19,7 @@ public class AddEventFrame extends JFrame {
     /**
      * Constructor for this frame. It takes in two models and the calendar the events are being added too.
      * @param dateModel     model containing the selected date
-     * @param stringModel   model containing the string
+     * @param stringModel   model containing the string for the day view
      * @param calendar      calendar to add the event to
      */
     public AddEventFrame(Model<LocalDate> dateModel, Model<String> stringModel, MyCalendar calendar) {

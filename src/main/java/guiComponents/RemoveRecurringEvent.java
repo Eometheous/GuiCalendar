@@ -6,9 +6,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 
+/**
+ * A frame for deleting recurring events from the calendar
+ * @author Jonathan Stewart Thomas
+ * @version 1.0.0.230423
+ */
 public class RemoveRecurringEvent extends JFrame{
-    public RemoveRecurringEvent(String name, Model<LocalDate> dateModel, Model<String> stringModel, MyCalendar calendar) {
-        super(name);
+    /**
+     * The constructor for this frame
+     * @param dateModel     the model containing the selected date
+     * @param stringModel   model containing the string for the day view
+     * @param calendar      the calendar being used
+     */
+    public RemoveRecurringEvent(Model<LocalDate> dateModel, Model<String> stringModel, MyCalendar calendar) {
+        super("Remove Recurring Event");
         setLocationRelativeTo(null);
         setVisible(true);
 

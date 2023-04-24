@@ -6,13 +6,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 
-public class ButtonsPanel extends JPanel{
+/**
+ * A month view controller which contains four buttons for manipulating the month view.
+ * These buttons can make the date go back and forward one month, or one day.
+ * @author Jonathan Stewart Thomas
+ * @version 1.0.0.230423
+ */
+public class MonthViewControllerPanel extends JPanel{
     JButton previousMonth, previousDay;
     JButton nextMonth, nextDay;
     Model<LocalDate> dateModel;
     LocalDate selectedDate;
 
-    public ButtonsPanel(MyCalendar calendar, Model<LocalDate> dateModel, Model<String> stringModel) {
+    /**
+     * The constructor for this panel which adds the four buttons
+     * @param calendar      the calendar being used to update the data within the stringModel
+     * @param dateModel     the date model containing the selected date
+     * @param stringModel   model containing the string for the day view
+     */
+    public MonthViewControllerPanel(MyCalendar calendar, Model<LocalDate> dateModel, Model<String> stringModel) {
         this.dateModel = dateModel;
         selectedDate = dateModel.get(0);
 
